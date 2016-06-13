@@ -1,4 +1,5 @@
 # About Making Table
+# About All of Control
 
 module Control
   def all_combinate(all_members)
@@ -22,7 +23,7 @@ module Control
     matching(main_table, sub_table, all_combis)
   end
 
-  def make
+  def making
     sub_table = []
     @events.each_with_index do |event, i|
       all_combis = @all_combis_def.dup
@@ -31,10 +32,9 @@ module Control
     end
   end
 
-  def complete
-    5.times do
-      # binding.pry
-      make
+  def make
+    @battles.times do
+      making
     end
   end
 end

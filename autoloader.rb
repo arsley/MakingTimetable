@@ -1,3 +1,4 @@
+# Loading...
 autoload :Table, './table'
 autoload :Event, './event'
 autoload :Control, './control'
