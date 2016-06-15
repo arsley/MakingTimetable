@@ -16,8 +16,21 @@ module Control
     combis.sample
   end
 
+  def into_main_table(sub_table)
+    @exit_code += 1
+    @events.each_with_index { |event, i| event.table << sub_table[i] }
+  end
+
+  def re_try_making
+    @exit_code -= 1
+    @events.each do |event|
+      event.table.delete_at(-1)
+    end
+  end
+
   def matching(main_table, sub_table, all_combis)
     match = choice(all_combis)
+    return nil if match.nil?
     return match unless check(main_table, sub_table, match)
     all_combis.delete(match)
     matching(main_table, sub_table, all_combis)
@@ -25,16 +38,21 @@ module Control
 
   def making
     sub_table = []
-    @events.each_with_index do |event, i|
+    @events.each do |event|
       all_combis = @all_combis_def.dup
       sub_table << matching(event.table, sub_table, all_combis)
-      event.table << sub_table[i]
     end
+    return into_main_table(sub_table) unless sub_table.include?(nil)
+    re_try_making
   end
 
   def make
-    @battles.times do
-      making
+    making until @exit_code == @battles
+  end
+
+  def disp_table
+    @events.each do |event|
+      event.table.each { |versus| print "#{versus}\n" }
     end
   end
 end
