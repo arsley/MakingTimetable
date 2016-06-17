@@ -32,7 +32,8 @@ module Control
     match = choice(all_combis)
     return nil if match.nil?
     return match unless check(main_table, sub_table, match)
-    all_combis.delete(match)
+    # all_combis.delete(match)
+    all_combis -= [match]
     matching(main_table, sub_table, all_combis)
   end
 
