@@ -1,5 +1,4 @@
 # About Checking
-# To Create Table
 
 module MatchChecker
   def each_finder(table, match)
@@ -7,7 +6,7 @@ module MatchChecker
     mem1, mem2 = match
     # table.each { |n| return match if n.include?(mem1) || n.include?(mem2) } #=> undefined method for nil:NilClass
     return nil unless table.flatten.find { |n| n == mem1 || n == mem2 }
-    match
+    nil
   end
 
   def check_conf(main_table, sub_table, match)
